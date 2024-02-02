@@ -3,6 +3,8 @@ name: GitHub Actions Build and Deploy
 on:
   workflow_dispatch:
   push:
+    tags:
+      - "v*" # Push events to matching v*, i.e. v1.0, v20.15.10
     branches:
       - master
 jobs:
@@ -22,7 +24,24 @@ jobs:
     - name: 'Upload Artifact'
       uses: actions/upload-artifact@v4
       with:
-          name: Upload
-          path: |
-            ./apk_installer_Win64.exe
-            ./apk_installer_Linux
+          name: apk_installer_Win64.exe
+          path: ./apk_installer_Win64.exe
+    - name: 'Upload Artifact'
+      uses: actions/upload-artifact@v4
+      with:
+          name: apk_installer_Linux
+          path: ./apk_installer_Linux
+    - name: Create Release and Upload Release Asset
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+          tag_name: ${{ github.ref }}
+          name: Release ${{ github.ref }}
+          body: TODO New Release.
+          draft: false
+          prerelease: false
+          files: |
+              apk_installer_Win64.exe
+              apk_installer_Linux
+              
+    
