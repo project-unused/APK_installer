@@ -9,7 +9,7 @@
       "stopAtEntry": false,
       "externalConsole": false,
       "cwd": "/home/xingguangcuican/apk_installer",
-      "program": "/home/xingguangcuican/apk_installer/build/Debug/outDebug",
+      "program": "/home/xingguangcuican/apk_installer/build/Release/outRelease",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
