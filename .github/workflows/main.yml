@@ -12,12 +12,12 @@ jobs:
     - name: Checkout
       uses: actions/checkout@master  
 
-    - name: Print a greeting
+    - name: Build
       run: |
         sudo apt update
         sudo apt install mingw-w64 -y
         sudo apt install clang -y
-        ./build_windows.sh apk_installer_Win64.exe
+        ./build_windows.sh main_win.cpp -o apk_installer_Win64.exe
         /bin/bash -c g++ -Wall -Wextra -Wpedantic -Wshadow -Wformat=2 -Wcast-align -Wconversion -Wsign-conversion -Wnull-dereference -O3 -DNDEBUG -c /home/xingguangcuican/apk_installer/main.cpp -o ./build/Release/main.o && g++ -Wall -Wextra -Wpedantic -Wshadow -Wformat=2 -Wcast-align -Wconversion -Wsign-conversion -Wnull-dereference -O3 -DNDEBUG   ./build/Release/main.o -o ./build/Release/apk_installer_Linux 
     - name: 'Upload Artifact'
       uses: actions/upload-artifact@v4
