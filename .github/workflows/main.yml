@@ -1,6 +1,7 @@
 
 name: GitHub Actions Build and Deploy
 on:
+  workflow_dispatch:
   push:
     branches:
       - master
