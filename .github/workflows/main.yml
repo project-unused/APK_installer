@@ -47,6 +47,7 @@ jobs:
         sudo apt update
         sudo apt install mingw-w64 -y
         sudo apt install clang -y
+        sudo apt install gcc-arm-none-eabi
         ./build_windows.sh main_win.cpp -o apk_installer_Win64.exe -DNDEBUG
         g++ ./main.cpp -DNDEBUG
         mv -v ./a.out ./apk_installer_Linux
