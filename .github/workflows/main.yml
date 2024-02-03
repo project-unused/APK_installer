@@ -16,7 +16,32 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@master  
+    - name: Get Last Tag
+      id: last_tag
+      run: |
+          latest_tag=${{ github.ref }}
+          echo "::set-output name=tag::$latest_tag"
 
+    - name: Extract Last Digit
+      id: extract_digit
+      run: |
+          last_tag=$INPUT_TAG
+          last_digit=$(echo "$last_tag" | awk -F. '{print $NF}')
+          echo "::set-output name=last_digit::$last_digit"
+    - name: Increment Last Digit
+      id: increment_digit
+      run: |
+          last_digit=$INPUT_LAST_DIGIT
+          new_last_digit=$((last_digit + 1))
+          echo "::set-output name=new_last_digit::$new_last_digit"
+
+    - name: Generate New Tag
+      id: generate_tag
+      run: |
+          last_tag=$INPUT_TAG
+          new_last_digit=$INPUT_NEW_LAST_DIGIT
+          new_tag=$(echo "$last_tag" | awk -F. '{$NF='$new_last_digit'}1')
+          echo "::set-output name=new_tag::$new_tag"
     - name: Build
       run: |
         sudo apt update
@@ -42,8 +67,8 @@ jobs:
       env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-            tag_name: ${{ github.ref }}
-            release_name: Release ${{ github.ref }}
+            tag_name: ${{ new_tag }}
+            release_name: Release ${{ new_tag }}
             draft: false
             prerelease: false
     - name: Upload Release Asset
