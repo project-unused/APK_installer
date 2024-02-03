@@ -35,13 +35,13 @@ jobs:
           new_last_digit=$((last_digit + 1))
           echo "::set-output name=new_last_digit::$new_last_digit"
 
-    - name: Generate New Tag
-      id: generate_tag
-      run: |
-          last_tag=$INPUT_TAG
-          new_last_digit=$INPUT_NEW_LAST_DIGIT
-          new_tag=$(echo "$last_tag" | awk -F. '{$NF='$new_last_digit'}1')
-          echo "::set-output name=new_tag::$new_tag"
+  #  - name: Generate New Tag
+    #  id: generate_tag
+     # run: |
+         # last_tag=$INPUT_TAG
+        #  new_last_digit=$INPUT_NEW_LAST_DIGIT
+       #   new_tag=$(echo "$last_tag" | awk -F. '{$NF='$new_last_digit'}1')
+       #   echo "::set-output name=new_tag::$new_tag"
     - name: Build
       run: |
         sudo apt update
