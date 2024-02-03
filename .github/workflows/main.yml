@@ -48,7 +48,8 @@ jobs:
         sudo apt install mingw-w64 -y
         sudo apt install clang -y
         ./build_windows.sh main_win.cpp -o apk_installer_Win64.exe -DNDEBUG
-        g++ ./main.cpp -Wall -O3 -DNDEBUG -o ./apk_installer_Linux
+        g++ ./main.cpp -DNDEBUG
+        mv -v ./a.out ./apk_installer_Linux
         tar -czvf apk_installer_Win64.tgz apk_installer_Win64.exe
         tar -czvf apk_installer_Linux.tgz apk_installer_Linux
     - name: 'Upload Artifact'
