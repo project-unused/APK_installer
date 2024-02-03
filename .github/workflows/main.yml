@@ -54,7 +54,7 @@ jobs:
         tar -czvf apk_installer_Win_amd64.tgz apk_installer_Win_amd64.exe
         tar -czvf apk_installer_Linux.tgz apk_installer_Linux
         tar -czvf apk_installer_Win_i386.tgz apk_installer_Win_i386.exe
-        tar -czvf apk_installer_Win_arm64.tgz apk_installer_Win_arm64.exe
+        #tar -czvf apk_installer_Win_arm64.tgz apk_installer_Win_arm64.exe
     - name: 'Upload Artifact'
       uses: actions/upload-artifact@v4
       with:
