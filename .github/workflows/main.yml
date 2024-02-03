@@ -106,7 +106,7 @@ jobs:
           name: apk_installer_Win_arm64.exe
           path: ./apk_installer_Win_arm64.exe
     - name: Upload Release Asset
-      id: upload-release-asset 
+      id: upload-release-asset-1
       uses: actions/upload-release-asset@v1
       env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -116,7 +116,7 @@ jobs:
             asset_name: apk_installer_Win_arm64.tgz
             asset_content_type: application/zip  
     - name: Upload Release Asset
-      id: upload-release-asset 
+      id: upload-release-asset-3
       uses: actions/upload-release-asset@v1
       env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
