@@ -48,16 +48,18 @@ jobs:
         sudo apt install mingw-w64 -y
         sudo apt install clang -y
         sudo apt install gcc-arm-none-eabi
-        ./build_windows.sh main_win.cpp -o apk_installer_Win64.exe -DNDEBUG
+        ./build_windows.sh main_win.cpp -DNDEBUG
         g++ ./main.cpp -DNDEBUG
         mv -v ./a.out ./apk_installer_Linux
-        tar -czvf apk_installer_Win64.tgz apk_installer_Win64.exe
+        tar -czvf apk_installer_Win_amd64.tgz apk_installer_Win_amd64.exe
         tar -czvf apk_installer_Linux.tgz apk_installer_Linux
+        tar -czvf apk_installer_Win_i386.tgz apk_installer_Win_i386.exe
+        tar -czvf apk_installer_Win_arm64.tgz apk_installer_Win_arm64.exe
     - name: 'Upload Artifact'
       uses: actions/upload-artifact@v4
       with:
-          name: apk_installer_Win64.exe
-          path: ./apk_installer_Win64.exe
+          name: apk_installer_Win_amd64.exe
+          path: ./apk_installer_Win_amd64.exe
     - name: 'Upload Artifact'
       uses: actions/upload-artifact@v4
       with:
@@ -80,8 +82,8 @@ jobs:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
             upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-            asset_path: ./apk_installer_Win64.tgz
-            asset_name: apk_installer_Win64.tgz
+            asset_path: ./apk_installer_Win_amd64.tgz
+            asset_name: apk_installer_Win_amd64.tgz
             asset_content_type: application/zip  
     - name: Upload Release Asset
       id: upload-release-asset-2 
@@ -93,3 +95,33 @@ jobs:
                   asset_path: ./apk_installer_Linux.tgz
                   asset_name: apk_installer_Linux.tgz
                   asset_content_type: application/zip  
+    - name: 'Upload Artifact'
+      uses: actions/upload-artifact@v4
+      with:
+          name: apk_installer_Win_i386.exe
+          path: ./apk_installer_Win_i386.exe
+    - name: 'Upload Artifact'
+      uses: actions/upload-artifact@v4
+      with:
+          name: apk_installer_Win_arm64.exe
+          path: ./apk_installer_Win_arm64.exe
+    - name: Upload Release Asset
+      id: upload-release-asset 
+      uses: actions/upload-release-asset@v1
+      env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+            upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+            asset_path: ./apk_installer_Win_arm64.tgz
+            asset_name: apk_installer_Win_arm64.tgz
+            asset_content_type: application/zip  
+    - name: Upload Release Asset
+      id: upload-release-asset 
+      uses: actions/upload-release-asset@v1
+      env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+            upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+            asset_path: ./apk_installer_Win_i386.tgz
+            asset_name: apk_installer_Win_i386.tgz
+            asset_content_type: application/zip    
