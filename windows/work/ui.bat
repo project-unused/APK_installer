@@ -1,3 +1,3 @@
 @echo off 
-rd /s /q "%systemdrive%\Program Files\apt_installer\"
+rd /s /q "%systemdrive%\Program Files\apk_installer\"
 del /s /q %0
