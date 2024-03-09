@@ -51,9 +51,13 @@ jobs:
         ./build_windows.sh main_win.cpp -DNDEBUG
         g++ ./main.cpp -DNDEBUG
         mv -v ./a.out ./apk_installer_Linux
-        tar -czvf apk_installer_Win_amd64.tgz apk_installer_Win_amd64.exe
+        cp -vf ./apk_installer_Win_amd64.exe ./windows/
+        rm -rvf ./windows/*.cpp
+        tar -czvf apk_installer_Win_amd64.tgz ./windows/
         tar -czvf apk_installer_Linux.tgz apk_installer_Linux
-        tar -czvf apk_installer_Win_i386.tgz apk_installer_Win_i386.exe
+        rm -rvf ./windows/*.exe
+        cp -rvf ./apk_installer_Win_i386.exe ./windows/
+        tar -czvf apk_installer_Win_i386.tgz ./windows/
         #tar -czvf apk_installer_Win_arm64.tgz apk_installer_Win_arm64.exe
     - name: 'Upload Artifact'
       uses: actions/upload-artifact@v4
