@@ -1,4 +1,5 @@
 #include <cctype>
+#include <unistd.h>
 #include <chrono>
 #include <cstdint>
 #include <cstdlib>
@@ -8,7 +9,6 @@
 #include <stdio.h>
 #include <string>
 #include <thread>
-#include <unistd.h>
 #include "../ini.h"
 //#include <bits/std_thread.h>
 //#define _GLIBCXX_HAS_GTHREADS
